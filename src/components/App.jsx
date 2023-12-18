@@ -4,7 +4,7 @@ import { NotificationContainer } from 'react-notifications';
 import { NotificationManager } from 'react-notifications';
 import { nanoid } from 'nanoid';
 import { ContactsList } from './ContactsList/ContactsList';
-import contactNumbers from '../data/contacts.json';
+// import contactNumbers from '../data/contacts.json';
 import { SectionTitle } from './SectionTitle/SectionTitle';
 import { SectionSubtitle } from './SectionSubtitle/SectionSubtitle';
 import { ContactForm } from './Form/ContactForm';
@@ -13,9 +13,22 @@ import css from './App.module.css';
 
 export class App extends Component {
   state = {
-    contacts: [...contactNumbers],
+    contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const newContact = localStorage.getItem('contacts');
+    const parseContacts = JSON.parse(newContact);
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts)
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   createNewContact = data => {
     const { contacts } = this.state;

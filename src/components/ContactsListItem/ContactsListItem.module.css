@@ -2,7 +2,7 @@
   text-align: left;
   font-style: italic;
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: space-between;
   margin-bottom: 5px;
 }
